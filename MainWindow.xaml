@@ -51,7 +51,8 @@
                         FontWeight="Bold" 
                         FontSize="16"
                         Cursor="Hand"
-                        Margin="0,0,0,15">
+                        Margin="0,0,0,15" 
+                        Click="ButtonLogin_OnClick" >
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="5"/>
