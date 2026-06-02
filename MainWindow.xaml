@@ -1,72 +1,70 @@
 ﻿<Window x:Class="CRUD.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         Title="Login" Height="450" Width="400"
         WindowStartupLocation="CenterScreen"
         Background="#F5F5F5">
     <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
-        <Border Background="White" 
-                Padding="30" 
-                CornerRadius="10" 
+        <Border Background="White"
+                Padding="30"
+                CornerRadius="10"
                 Width="320">
-            
+
             <StackPanel>
                 <!-- Título -->
-                <TextBlock Text="Bem-vindo" 
-                           FontSize="26" 
-                           FontWeight="Bold" 
-                           Foreground="#333333" 
-                           Margin="0,0,0,20" 
-                           HorizontalAlignment="Center"/>
+                <TextBlock Text="Bem-vindo"
+                           FontSize="26"
+                           FontWeight="Bold"
+                           Foreground="#333333"
+                           Margin="0,0,0,20"
+                           HorizontalAlignment="Center" />
 
                 <!-- Campo de Usuário -->
-                <TextBlock Text="Usuário" 
-                           Foreground="#666666" 
-                           Margin="0,0,0,5" 
-                           FontSize="14"/>
-                <TextBox x:Name="TxtUsuario" 
-                         Height="35" 
-                         Margin="0,0,0,15" 
-                         VerticalContentAlignment="Center" 
-                         Padding="5,0"/>
+                <TextBlock Text="Usuário"
+                           Foreground="#666666"
+                           Margin="0,0,0,5"
+                           FontSize="14" />
+                <TextBox x:Name="TxtUsuario"
+                         Height="35"
+                         Margin="0,0,0,15"
+                         VerticalContentAlignment="Center"
+                         Padding="5,0" />
 
                 <!-- Campo de Senha -->
-                <TextBlock Text="Senha" 
-                           Foreground="#666666" 
-                           Margin="0,0,0,5" 
-                           FontSize="14"/>
-                <PasswordBox x:Name="TxtSenha" 
-                             Height="35" 
-                             Margin="0,0,0,25" 
-                             VerticalContentAlignment="Center" 
-                             Padding="5,0"/>
+                <TextBlock Text="Senha"
+                           Foreground="#666666"
+                           Margin="0,0,0,5"
+                           FontSize="14" />
+                <PasswordBox x:Name="TxtSenha"
+                             Height="35"
+                             Margin="0,0,0,25"
+                             VerticalContentAlignment="Center"
+                             Padding="5,0" />
 
                 <!-- Botão de Login -->
-                <Button Content="Entrar" 
-                        Height="40" 
-                        Background="#007ACC" 
-                        Foreground="White" 
-                        FontWeight="Bold" 
+                <Button Content="Entrar"
+                        Height="40"
+                        Background="#007ACC"
+                        Foreground="White"
+                        FontWeight="Bold"
                         FontSize="16"
                         Cursor="Hand"
-                        Margin="0,0,0,15" 
-                        Click="ButtonLogin_OnClick" >
+                        Margin="0,0,0,15"
+                        Click="ButtonLogin_OnClick">
                     <Button.Resources>
                         <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="5"/>
+                            <Setter Property="CornerRadius" Value="5" />
                         </Style>
                     </Button.Resources>
                 </Button>
 
                 <!-- Botão de Cadastro -->
-                <Button Content="Criar uma conta" 
-                        Background="Transparent" 
+                <Button Content="Criar uma conta"
+                        Background="Transparent"
                         BorderThickness="0"
-                        Foreground="#007ACC" 
+                        Foreground="#007ACC"
                         Cursor="Hand"
-                        HorizontalAlignment="Center"/>
+                        HorizontalAlignment="Center" />
             </StackPanel>
         </Border>
     </Grid>
