@@ -39,7 +39,7 @@ public partial class Cadastro : Window
             conexao.Open();
 
             var linhasAfetadas = comando.ExecuteNonQuery();
-            if (linhasAfetadas > 0) ;
+            if (linhasAfetadas > 0)
             {
                 MessageBox.Show("Cadastro efetuado com sucesso!");
             }

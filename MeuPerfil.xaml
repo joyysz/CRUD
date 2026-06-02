@@ -1,0 +1,102 @@
+﻿<Window x:Class="CRUD.MeuPerfil"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MeuPerfil" Height="650" Width="800">
+     <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+    <Border Background="White"
+            Padding="30"
+            CornerRadius="10"
+            Width="340"
+            Effect="{DynamicResource UI_DropShadow}"> <StackPanel>
+            <Ellipse x:Name="FotoPerfil"
+                     Width="90" 
+                     Height="90" 
+                     Stroke="#CCCCCC" 
+                     StrokeThickness="1" 
+                     HorizontalAlignment="Center" 
+                     Margin="0,0,0,15">
+                <Ellipse.Fill>
+                    <ImageBrush ImageSource="https://img.magnific.com/vetores-premium/ilustracao-plana-vetorial-em-escala-de-cinza-avatar-perfil-de-usuario-icone-de-pessoa-imagem-de-perfil-de-silhueta-neutra-de-genero-adequado-para-perfis-de-midia-social-icones-protetores-de-tela-e-como-um-modelo-x9xa_719432-2191.jpg" Stretch="UniformToFill"/>
+                </Ellipse.Fill>
+            </Ellipse>
+
+            <TextBlock Text="Meu Perfil"
+                       FontSize="26"
+                       FontWeight="Bold"
+                       Foreground="#333333"
+                       Margin="0,0,0,20"
+                       HorizontalAlignment="Center" />
+
+            <TextBlock Text="Nome Completo"
+                       Foreground="#666666"
+                       Margin="0,0,0,5"
+                       FontSize="14" />
+            <TextBox x:Name="TxtNome"
+                     Height="35"
+                     Margin="0,0,0,15"
+                     VerticalContentAlignment="Center"
+                     Padding="5,0" />
+
+            <TextBlock Text="Username"
+                       Foreground="#666666"
+                       Margin="0,0,0,5"
+                       FontSize="14" />
+            <TextBox x:Name="TxtUsername"
+                     Height="35"
+                     Margin="0,0,0,15"
+                     VerticalContentAlignment="Center"
+                     Padding="5,0" />
+
+            <TextBlock Text="E-mail"
+                       Foreground="#666666"
+                       Margin="0,0,0,5"
+                       FontSize="14" />
+            <TextBox x:Name="TxtEmail"
+                     Height="35"
+                     Margin="0,0,0,15"
+                     VerticalContentAlignment="Center"
+                     Padding="5,0" />
+
+            <TextBlock Text="Nova Senha"
+                       Foreground="#666666"
+                       Margin="0,0,0,5"
+                       FontSize="14" />
+            <PasswordBox x:Name="TxtSenha"
+                         Height="35"
+                         Margin="0,0,0,25"
+                         VerticalContentAlignment="Center"
+                         Padding="5,0" />
+
+            <Button Content="Salvar Alterações"
+                    Height="40"
+                    Background="#007ACC"
+                    Foreground="White"
+                    FontWeight="Bold"
+                    FontSize="16"
+                    Cursor="Hand"
+                    Margin="0,0,0,12"
+                    Click="ButtonSalvar_OnClick">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5" />
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <Button Content="Excluir Conta"
+                    Height="35"
+                    Background="#DC3545"
+                    Foreground="White"
+                    FontWeight="SemiBold"
+                    FontSize="14"
+                    Cursor="Hand">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5" />
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </StackPanel>
+    </Border>
+</Grid>
+</Window>
