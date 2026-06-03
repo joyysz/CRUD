@@ -89,7 +89,8 @@
                     Foreground="White"
                     FontWeight="SemiBold"
                     FontSize="14"
-                    Cursor="Hand">
+                    Cursor="Hand"
+                    Click="BtnDeletar_OnClick">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5" />

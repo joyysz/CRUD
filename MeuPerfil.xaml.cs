@@ -7,6 +7,7 @@ namespace CRUD;
 public partial class MeuPerfil : Window
 {
     private Usuario UsuarioAtual;
+
     public MeuPerfil(Usuario usuario)
     {
         InitializeComponent();
@@ -14,7 +15,7 @@ public partial class MeuPerfil : Window
         TxtNome.Text = UsuarioAtual.Nome;
         TxtEmail.Text = UsuarioAtual.Email;
         TxtUsername.Text = UsuarioAtual.Username;
-        
+
     }
 
     private void ButtonSalvar_OnClick(object sender, RoutedEventArgs e)
@@ -31,7 +32,7 @@ public partial class MeuPerfil : Window
         UsuarioAtual.Username = TxtUsername.Text;
         UsuarioAtual.Nome = TxtNome.Text;
         UsuarioAtual.Email = TxtEmail.Text;
-        if (senhaFoiAlterada) UsuarioAtual.Senha = TxtSenha.Password; 
+        if (senhaFoiAlterada) UsuarioAtual.Senha = TxtSenha.Password;
 
         using var conexao = new MySqlConnection(App.StringConexao);
         var query = "UPDATE usuarios SET username = @username, nome = @nome, email = @email";
@@ -39,7 +40,7 @@ public partial class MeuPerfil : Window
         if (senhaFoiAlterada) query += ", senha = @senha";
 
         query += " WHERE id = @id";
-        
+
         using var comando = new MySqlCommand(query, conexao);
 
         comando.Parameters.AddWithValue("@username", UsuarioAtual.Username);
@@ -47,8 +48,8 @@ public partial class MeuPerfil : Window
         comando.Parameters.AddWithValue("@email", UsuarioAtual.Email);
         comando.Parameters.AddWithValue("@id", UsuarioAtual.Id);
 
-        if (senhaFoiAlterada) comando.Parameters.AddWithValue("@senha", UsuarioAtual.Senha); 
- 
+        if (senhaFoiAlterada) comando.Parameters.AddWithValue("@senha", UsuarioAtual.Senha);
+
         try
         {
             conexao.Open();
@@ -65,6 +66,38 @@ public partial class MeuPerfil : Window
         catch (Exception exception)
         {
             MessageBox.Show($"Erro ao DB. ");
+        }
+    }
+
+    private void BtnDeletar_OnClick(object sender, RoutedEventArgs e)
+    {
+        {
+           var resultadoMessageBox =  MessageBox.Show("Você tem certeza que deseja apagar o seu perfil?", "Confirmação de exclusão", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+           if (resultadoMessageBox == MessageBoxResult.No) return;
+                
+            using var conexao = new MySqlConnection(App.StringConexao);
+            string query = "DELETE FROM usuarios WHERE id = @id";
+            using var comando = new MySqlCommand(query, conexao);
+            comando.Parameters.AddWithValue("@id", UsuarioAtual.Id);
+            try
+            {
+                conexao.Open();
+                int linhasAfetadas = comando.ExecuteNonQuery();
+                if (linhasAfetadas > 0)
+                {
+                    MessageBox.Show("Conta excluida com sucesso!");
+                    Close();
+                }
+                else
+                {
+                    MessageBox.Show("Nenhuma conta foi encontrada.");
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show($"Erro ao excluir conta: {exception.Message} ");
+            }
         }
     }
 }
