@@ -51,7 +51,7 @@
                             </Grid>
 
                             <!-- Conteúdo do Post -->
-                            <TextBlock Grid.Row="1" Text="I'm the reason I smile everyday." FontSize="14"
+                            <TextBlock Grid.Row="1" Text="{Binding Conteudo}" FontSize="14"
                                        Foreground="#374151" TextWrapping="Wrap" Margin="0,0,0,12" />
 
                             <!-- Ações: Botão de Curtir -->
