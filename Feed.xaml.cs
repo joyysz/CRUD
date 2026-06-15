@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using CRUD.Modelos;
 using MySql.Data.MySqlClient;
 
@@ -6,8 +7,12 @@ namespace CRUD;
 
 public partial class Feed : Window
 {
+
+    private Usuario _usuario;
+    
     public Feed(Usuario usuario)
     {
+        _usuario = usuario;
         InitializeComponent();
         CarregarPosts_Quandoiniciar();
     }
@@ -58,6 +63,52 @@ public partial class Feed : Window
         catch (MySqlException ex)
         {
             MessageBox.Show(ex.Message);
+        }
+    }
+
+    private void BtnCurtir_OnClick(object sender, RoutedEventArgs e)
+    {
+        var botao = (Button)sender;
+        var postagem = (Postagem)botao.Tag;
+        var query = "SELECT 1 FROM curtidas_postagens WHERE usuario_id = @usuario AND postagem_id = @postagem";
+        
+        using var conexao = new MySqlConnection(App.StringConexao);
+        using var comando = new MySqlCommand(query, conexao);
+
+        comando.Parameters.AddWithValue("@usuario", _usuario.Id);
+        comando.Parameters.AddWithValue("@postagem", postagem.Id);
+        
+        
+        
+        query = "INSERT INTO curtidas_postagens(usuario_id, postagem_id) VALUES (@usuario, @postagem)";
+
+        try
+        {
+            
+            conexao.Open();
+            var leitor = comando.ExecuteReader();
+            string acao;
+
+            if (leitor.HasRows)
+            {
+                query = "DELETE FROM curtidas_postagens WHERE usuario_id = @usuario AND postagem_id = @postagem";
+                acao = "descurtir";
+            }
+            else
+            {
+                query = "INSERT INTO curtidas_postagens(usuario_id, postagem_id) VALUES (@usuario, @postagem)";
+                acao = "curtir";
+            }
+
+            conexao.Close();
+            comando.CommandText = query;
+            conexao.Open();
+            var linhasAfetadas = comando.ExecuteNonQuery();
+            if (linhasAfetadas == 0) throw new Exception($"Erro ao {acao} postagem!");
+        }
+        catch (Exception excecao)
+        {
+            MessageBox.Show(excecao.Message);
         }
     }
 }

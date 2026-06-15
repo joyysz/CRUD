@@ -19,50 +19,60 @@
         </Border>
 
         <!-- Lista de Posts (Feed) -->
-        <ItemsControl x:Name="ItemsControlFeed" Grid.Row="1">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate DataType="{x:Type modelos:Postagem}">
-                    <Border Background="White" CornerRadius="8" BorderBrush="#E5E7EB" BorderThickness="1"
-                            Padding="15"
-                            Margin="10,5">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden">
+            <ItemsControl x:Name="ItemsControlFeed" Grid.Row="1">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type modelos:Postagem}">
+                        <Border Background="White" CornerRadius="8" BorderBrush="#E5E7EB" BorderThickness="1"
+                                Padding="15"
+                                Margin="10,5">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
 
-                            <!-- Cabeçalho: Nome, Usuário e Data -->
-                            <Grid Grid.Row="0" Margin="0,0,0,8">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
+                                <!-- Cabeçalho: Nome, Usuário e Data -->
+                                <Grid Grid.Row="0" Margin="0,0,0,8">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
 
-                                <StackPanel Grid.Column="0" Orientation="Horizontal">
-                                    <TextBlock Text="{Binding Usuario.Nome}" FontWeight="Bold" FontSize="14"
-                                               Foreground="#111827"
-                                               Margin="0,0,5,0" />
-                                    <TextBlock Text="{Binding Usuario.Username, StringFormat='@{0}'}" Foreground="#6B7280" FontSize="14" />
+                                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Usuario.Nome}" FontWeight="Bold" FontSize="14"
+                                                   Foreground="#111827"
+                                                   Margin="0,0,5,0" />
+                                        <TextBlock Text="{Binding Usuario.Username, StringFormat='@{0}'}"
+                                                   Foreground="#6B7280" FontSize="14" />
+                                    </StackPanel>
+
+                                    <TextBlock Grid.Column="1"
+                                               Text="{Binding Postado_em, StringFormat='dd MMM - HH:mm'}"
+                                               Foreground="#9CA3AF" FontSize="12"
+                                               VerticalAlignment="Center" />
+                                </Grid>
+
+                                <!-- Conteúdo do Post -->
+                                <TextBlock Grid.Row="1" Text="{Binding Conteudo}" FontSize="14"
+                                           Foreground="#374151" TextWrapping="Wrap" Margin="0,0,0,12" />
+
+                                <!-- Ações: Botão de Curtir -->
+                                <StackPanel Grid.Row="2" Orientation="Horizontal">
+                                    <Button Content="❤️ Curtir" Background="Transparent" BorderThickness="0"
+                                            Foreground="#DC2626" FontWeight="SemiBold" Cursor="Hand" Click="BtnCurtir_OnClick" Padding="5,2" 
+                                            Tag="{Binding}"/>
+                                    <TextBlock VerticalAlignment="Center"
+                                             Margin="8,0"
+                                             Text="{Binding Curtidas, StringFormat='{}{0} curtidas'}">
+                                    </TextBlock>
                                 </StackPanel>
-
-                                <TextBlock Grid.Column="1" Text="{Binding Postado_em, StringFormat='dd MMM - HH:mm'}" Foreground="#9CA3AF" FontSize="12"
-                                           VerticalAlignment="Center" />
                             </Grid>
-
-                            <!-- Conteúdo do Post -->
-                            <TextBlock Grid.Row="1" Text="{Binding Conteudo}" FontSize="14"
-                                       Foreground="#374151" TextWrapping="Wrap" Margin="0,0,0,12" />
-
-                            <!-- Ações: Botão de Curtir -->
-                            <StackPanel Grid.Row="2" Orientation="Horizontal">
-                                <Button Content="❤️ Curtir" Background="Transparent" BorderThickness="0"
-                                        Foreground="#DC2626" FontWeight="SemiBold" Cursor="Hand" Padding="5,2" />
-                            </StackPanel>
-                        </Grid>
-                    </Border>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
     </Grid>
 </Window>
