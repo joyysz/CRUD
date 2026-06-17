@@ -61,8 +61,19 @@
                                 <!-- Ações: Botão de Curtir -->
                                 <StackPanel Grid.Row="2" Orientation="Horizontal">
                                     <Button Content="❤️ Curtir" Background="Transparent" BorderThickness="0"
-                                            Foreground="#DC2626" FontWeight="SemiBold" Cursor="Hand" Click="BtnCurtir_OnClick" Padding="5,2" 
-                                            Tag="{Binding}"/>
+                                             FontWeight="SemiBold" Cursor="Hand" Click="BtnCurtir_OnClick" Padding="5,2" 
+                                            Tag="{Binding}">
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <Setter Property="Background" Value="#2563EB" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding FoiCurtido}" Value="True">
+                                                    <Setter Property="Foreground" Value="#FF0000" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                        </Button>   
                                     <TextBlock VerticalAlignment="Center"
                                              Margin="8,0"
                                              Text="{Binding Curtidas, StringFormat='{}{0} curtidas'}">
