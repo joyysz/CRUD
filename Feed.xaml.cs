@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using CRUD.Modelos;
 using MySql.Data.MySqlClient;
 
@@ -8,9 +7,8 @@ namespace CRUD;
 
 public partial class Feed : Window
 {
+    private readonly Usuario _usuario;
 
-    private Usuario _usuario;
-    
     public Feed(Usuario usuario)
     {
         _usuario = usuario;
@@ -24,13 +22,13 @@ public partial class Feed : Window
 
         const string query =
             "SELECT p.id, p.conteudo, p.curtidas, p.postado_em, u.nome, u.username, IF (cp.usuario_id IS NOT NULL, TRUE, FALSE) AS curtido FROM postagens p INNER JOIN usuarios u ON p.usuario_id = u.id LEFT JOIN curtidas_postagens cp ON cp.postagem_id = p.id AND cp.usuario_id = @usuario_id ORDER BY p.postado_em DESC";
-        
-        
+
+
         using var conexao = new MySqlConnection(App.StringConexao);
 
         using var comando = new MySqlCommand(query, conexao);
         comando.Parameters.AddWithValue("@usuario_id", _usuario.Id);
-        
+
         try
         {
             conexao.Open();
@@ -45,12 +43,12 @@ public partial class Feed : Window
 
             while (leitor.Read())
             {
-                var postagem = new Postagem()
+                var postagem = new Postagem
                 {
                     Id = leitor.GetInt32("id"),
                     Conteudo = leitor.GetString("conteudo"),
                     Curtidas = leitor.GetInt32("curtidas"),
-                    Postado_em = leitor.GetDateTime("postado_em"),
+                    PostadoEm = leitor.GetDateTime("postado_em"),
                     FoiCurtido = leitor.GetBoolean("curtido"),
                     Usuario = new Usuario
                     {
@@ -58,10 +56,10 @@ public partial class Feed : Window
                         Username = leitor.GetString("username")
                     }
                 };
-                
+
                 listaPostagens.Add(postagem);
             }
-            
+
             ItemsControlFeed.ItemsSource = listaPostagens;
         }
         catch (MySqlException ex)
@@ -75,7 +73,7 @@ public partial class Feed : Window
         var botao = (Button)sender;
         var postagem = (Postagem)botao.Tag;
         var query = "SELECT 1 FROM curtidas_postagens WHERE usuario_id = @usuario AND postagem_id = @postagem";
-        
+
         using var conexao = new MySqlConnection(App.StringConexao);
         using var comando = new MySqlCommand(query, conexao);
 
@@ -84,7 +82,6 @@ public partial class Feed : Window
 
         try
         {
-            
             conexao.Open();
             var leitor = comando.ExecuteReader();
             string acao;

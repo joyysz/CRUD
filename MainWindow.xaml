@@ -65,7 +65,7 @@
                         Foreground="#007ACC"
                         Cursor="Hand"
                         HorizontalAlignment="Center"
-                        Click="BtnCadastro_OnClick"/>
+                        Click="BtnCadastro_OnClick" />
             </StackPanel>
         </Border>
     </Grid>

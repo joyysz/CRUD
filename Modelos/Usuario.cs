@@ -2,9 +2,9 @@
 
 public class Usuario
 {
-    public int Id;
-    public string Nome  { get; set; }
     public string Email;
+    public int Id;
     public string Senha;
-    public string Username { get; set; }
+    public string Nome { get; set; } = string.Empty;
+    public string Username { get; set; } = string.Empty;
 }

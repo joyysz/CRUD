@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:local="clr-namespace:CRUD"
         xmlns:modelos="clr-namespace:CRUD.Modelos"
         mc:Ignorable="d"
         Title="Feed" Height="450" Width="800">
@@ -20,7 +19,7 @@
 
         <!-- Lista de Posts (Feed) -->
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden">
-            <ItemsControl x:Name="ItemsControlFeed" Grid.Row="1">
+            <ItemsControl x:Name="ItemsControlFeed">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type modelos:Postagem}">
                         <Border Background="White" CornerRadius="8" BorderBrush="#E5E7EB" BorderThickness="1"
@@ -49,7 +48,7 @@
                                     </StackPanel>
 
                                     <TextBlock Grid.Column="1"
-                                               Text="{Binding Postado_em, StringFormat='dd MMM - HH:mm'}"
+                                               Text="{Binding PostadoEm, StringFormat='dd MMM - HH:mm'}"
                                                Foreground="#9CA3AF" FontSize="12"
                                                VerticalAlignment="Center" />
                                 </Grid>
@@ -61,23 +60,22 @@
                                 <!-- Ações: Botão de Curtir -->
                                 <StackPanel Grid.Row="2" Orientation="Horizontal">
                                     <Button Content="❤️ Curtir" Background="Transparent" BorderThickness="0"
-                                             FontWeight="SemiBold" Cursor="Hand" Click="BtnCurtir_OnClick" Padding="5,2" 
+                                            FontWeight="SemiBold" Cursor="Hand" Click="BtnCurtir_OnClick" Padding="5,2"
                                             Tag="{Binding}">
-                                    <Button.Style>
-                                        <Style TargetType="Button">
-                                            <Setter Property="Background" Value="#2563EB" />
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding FoiCurtido}" Value="True">
-                                                    <Setter Property="Foreground" Value="#FF0000" />
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Button.Style>
-                                        </Button>   
+                                        <Button.Style>
+                                            <Style TargetType="Button">
+                                                <Setter Property="Background" Value="#2563EB" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding FoiCurtido}" Value="True">
+                                                        <Setter Property="Foreground" Value="#FF0000" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
                                     <TextBlock VerticalAlignment="Center"
-                                             Margin="8,0"
-                                             Text="{Binding Curtidas, StringFormat='{}{0} curtidas'}">
-                                    </TextBlock>
+                                               Margin="8,0"
+                                               Text="{Binding Curtidas, StringFormat='{}{0} curtidas'}" />
                                 </StackPanel>
                             </Grid>
                         </Border>
