@@ -49,6 +49,7 @@
                         FontWeight="Bold"
                         FontSize="16"
                         Cursor="Hand"
+                        IsDefault="True"
                         Margin="0,0,0,15"
                         Click="ButtonLogin_OnClick">
                     <Button.Resources>
