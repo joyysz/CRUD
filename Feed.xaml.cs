@@ -112,4 +112,9 @@ public partial class Feed : Window
             MessageBox.Show(excecao.Message);
         }
     }
+
+    private void BtnNovoPost_OnClick(object sender, RoutedEventArgs e)
+    {
+        new NovaPostagem(_usuario).ShowDialog();
+    }
 }
