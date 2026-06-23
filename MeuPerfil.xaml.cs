@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using CRUD.Modelos;
 using MySql.Data.MySqlClient;
 
@@ -19,11 +20,21 @@ public partial class MeuPerfil : Window
 
     private void ButtonSalvar_OnClick(object sender, RoutedEventArgs e)
     {
-        if (string.IsNullOrWhiteSpace(TxtNome.Text) || string.IsNullOrWhiteSpace(TxtEmail.Text) ||
-            string.IsNullOrWhiteSpace(TxtUsername.Text))
+        Dictionary<TextBox, string> caixasTexto = new()
         {
-            MessageBox.Show("Preencha todos os campos!");
-            return;
+            {TxtNome,  "NOME"},
+            {TxtEmail,  "EMAIL"},
+            {TxtUsername,  "USERNAME"}
+        };
+
+        foreach (var caixinha in caixasTexto)
+        {
+            if (string.IsNullOrWhiteSpace(caixinha.Key.Text))
+            {
+                MessageBox.Show($"O campo {caixinha.Value} não pode ser vazio!");
+                caixinha.Key.Focus();
+                return;
+            }
         }
 
         var senhaFoiAlterada = !string.IsNullOrWhiteSpace(TxtSenha.Password);
@@ -76,34 +87,35 @@ public partial class MeuPerfil : Window
 
             if (resultadoMessageBox == MessageBoxResult.No) return;
 
-        // Criar uma query
-        const string query = "DELETE FROM usuarios WHERE id = @id";
-        // Criar a conexao
-        using var conexao = new MySqlConnection(App.StringConexao);
-        // Criar o comando
-        using var comando = new MySqlCommand(query, conexao);
-        // Adicionar os parametros
-        comando.Parameters.AddWithValue("@id", UsuarioAtual.Id);
-        try
-        {
-            // Abrir conexao
-            conexao.Open();
-            // Executar o comando
-            var linhasAfetadas = comando.ExecuteNonQuery();
-            // Verificar se o comando foi executado
-            if (linhasAfetadas < 1) throw new Exception("Erro ao excluir perfil!");
+            // Criar uma query
+            const string query = "DELETE FROM usuarios WHERE id = @id";
+            // Criar a conexao
+            using var conexao = new MySqlConnection(App.StringConexao);
+            // Criar o comando
+            using var comando = new MySqlCommand(query, conexao);
+            // Adicionar os parametros
+            comando.Parameters.AddWithValue("@id", UsuarioAtual.Id);
+            try
+            {
+                // Abrir conexao
+                conexao.Open();
+                // Executar o comando
+                var linhasAfetadas = comando.ExecuteNonQuery();
+                // Verificar se o comando foi executado
+                if (linhasAfetadas < 1) throw new Exception("Erro ao excluir perfil!");
 
-            MessageBox.Show("Perfil deletado com sucesso!");
-            // Se ele foi executado, fechar a janela MeuPerfil
-            Close();
-        }
-        catch (Exception exception)
-        {
-            MessageBox.Show($"Erro no banco: {exception.Message}");
-        }
-        finally
-        {
-            conexao.Close();
+                MessageBox.Show("Perfil deletado com sucesso!");
+                // Se ele foi executado, fechar a janela MeuPerfil
+                Close();
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show($"Erro no banco: {exception.Message}");
+            }
+            finally
+            {
+                conexao.Close();
+            }
         }
     }
 }
