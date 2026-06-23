@@ -66,6 +66,10 @@ public partial class Feed : Window
         {
             MessageBox.Show(ex.Message);
         }
+        finally
+        {
+            conexao.Close();
+        }
     }
 
     private void BtnCurtir_OnClick(object sender, RoutedEventArgs e)
@@ -85,7 +89,6 @@ public partial class Feed : Window
             conexao.Open();
             var leitor = comando.ExecuteReader();
             string acao;
-
             if (leitor.HasRows)
             {
                 query = "DELETE FROM curtidas_postagens WHERE usuario_id = @usuario AND postagem_id = @postagem";
@@ -110,6 +113,10 @@ public partial class Feed : Window
         catch (Exception excecao)
         {
             MessageBox.Show(excecao.Message);
+        }
+        finally
+        {
+            conexao.Close();
         }
     }
 

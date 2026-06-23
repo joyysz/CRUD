@@ -60,7 +60,11 @@ public partial class MeuPerfil : Window
         }
         catch (Exception exception)
         {
-            MessageBox.Show("Erro ao DB. ");
+            MessageBox.Show($"Erro no banco: {exception.Message}");
+        }
+        finally
+        {
+            conexao.Close();
         }
     }
 
@@ -72,28 +76,34 @@ public partial class MeuPerfil : Window
 
             if (resultadoMessageBox == MessageBoxResult.No) return;
 
-            using var conexao = new MySqlConnection(App.StringConexao);
-            var query = "DELETE FROM usuarios WHERE id = @id";
-            using var comando = new MySqlCommand(query, conexao);
-            comando.Parameters.AddWithValue("@id", UsuarioAtual.Id);
-            try
-            {
-                conexao.Open();
-                var linhasAfetadas = comando.ExecuteNonQuery();
-                if (linhasAfetadas > 0)
-                {
-                    MessageBox.Show("Conta excluida com sucesso!");
-                    Close();
-                }
-                else
-                {
-                    MessageBox.Show("Nenhuma conta foi encontrada.");
-                }
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show($"Erro ao excluir conta: {exception.Message} ");
-            }
+        // Criar uma query
+        const string query = "DELETE FROM usuarios WHERE id = @id";
+        // Criar a conexao
+        using var conexao = new MySqlConnection(App.StringConexao);
+        // Criar o comando
+        using var comando = new MySqlCommand(query, conexao);
+        // Adicionar os parametros
+        comando.Parameters.AddWithValue("@id", UsuarioAtual.Id);
+        try
+        {
+            // Abrir conexao
+            conexao.Open();
+            // Executar o comando
+            var linhasAfetadas = comando.ExecuteNonQuery();
+            // Verificar se o comando foi executado
+            if (linhasAfetadas < 1) throw new Exception("Erro ao excluir perfil!");
+
+            MessageBox.Show("Perfil deletado com sucesso!");
+            // Se ele foi executado, fechar a janela MeuPerfil
+            Close();
+        }
+        catch (Exception exception)
+        {
+            MessageBox.Show($"Erro no banco: {exception.Message}");
+        }
+        finally
+        {
+            conexao.Close();
         }
     }
 }

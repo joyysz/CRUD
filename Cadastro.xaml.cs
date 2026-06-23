@@ -4,9 +4,6 @@ using MySql.Data.MySqlClient;
 
 namespace CRUD;
 
-/// <summary>
-///     Interaction logic for MainWindow.xaml
-/// </summary>
 public partial class Cadastro : Window
 {
     public Cadastro()
@@ -28,7 +25,7 @@ public partial class Cadastro : Window
         }
 
         using var conexao = new MySqlConnection(App.StringConexao);
-        var query =
+        const string query =
             "INSERT INTO usuarios(nome, username, email, senha) VALUES(@nome, @username, @email, @senha); SELECT LAST_INSERT_ID()";
 
         using var comando = new MySqlCommand(query, conexao);
@@ -62,6 +59,10 @@ public partial class Cadastro : Window
             }
 
             MessageBox.Show(exception.Message);
+        }
+        finally
+        {
+            conexao.Close();
         }
     }
 }

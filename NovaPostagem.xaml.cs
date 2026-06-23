@@ -51,6 +51,5 @@ public partial class NovaPostagem : Window
             conexao.Close();
             Close();
         }
-
     }
 }
