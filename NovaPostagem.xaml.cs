@@ -12,6 +12,7 @@ public partial class NovaPostagem : Window
     {
         InitializeComponent();
         _usuario = usuario;
+        TbConteudo.Focus();
     }
 
     private void TbConteudo_OnTextChanged(object sender, TextChangedEventArgs e)

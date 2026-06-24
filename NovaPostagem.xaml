@@ -53,7 +53,9 @@
                 FontWeight="Bold"
                 Margin="8"
                 Padding="8" 
-                Click="BtnPostar_OnClick">
+                Click="BtnPostar_OnClick"
+                IsDefault="True"
+                ToolTip="Comente algo divertido!">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5" />
