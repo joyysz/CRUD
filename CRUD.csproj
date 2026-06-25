@@ -14,4 +14,9 @@
         <PackageReference Include="MySql.EntityFrameworkCore" Version="8.0.26"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="Resources\icon.png" />
+      <Resource Include="Resources\icon.png" />
+    </ItemGroup>
+
 </Project>
